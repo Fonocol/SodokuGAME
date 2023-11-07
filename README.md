@@ -14,5 +14,6 @@ Le jeu commence généralement avec quelques chiffres déjà placés dans la gri
 
 # resources
 [1) wikipedia](https://fr.wikipedia.org/wiki/Math%C3%A9matiques_du_sudoku)
+
 [2)Théorie des ensembles appliquée au sudoku et algorithmique associée
 Marie-Pierre Falissard, professeure de mathématiques à Pully-Lausanne (collège Champittet)](https://www.vsmp.ch/crm/articles/articles_bulletin/B120_MPF.pdf)
