@@ -11,3 +11,6 @@ Le jeu commence généralement avec quelques chiffres déjà placés dans la gri
 2. Résoudre le puzzle en déterminant les chiffres manquants de manière logique, sans deviner.
 3. Compléter la grille de manière efficace en minimisant le nombre d'erreurs.
 4. Améliorer ses compétences en résolution de problèmes et en logique pour résoudre des Sodokus de niveaux de difficulté croissants.
+
+# resources
+[1) wikipedia](https://fr.wikipedia.org/wiki/Math%C3%A9matiques_du_sudoku)
