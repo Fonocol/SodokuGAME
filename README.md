@@ -1,18 +1,5 @@
 # SodokuGAME
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-</head>
-<body>
-    
-</body>
-</html>>
+
 Sodoku est un jeu de chiffres sur une grille 9x9. L'objectif : remplir la grille sans répéter les chiffres dans les lignes, colonnes et sous-grilles de 3x3.
 
 Le jeu Sodoku est un casse-tête numérique populaire qui se joue sur une grille de 9x9 cases, divisée en neuf sous-grilles de 3x3 cases. L'objectif du jeu est de remplir toutes les cases de la grille avec des chiffres de 1 à 9 de manière à ce que chaque ligne, chaque colonne et chaque sous-grille de 3x3 ne contienne jamais deux fois le même chiffre. En d'autres termes, chaque chiffre de 1 à 9 doit apparaître une seule fois dans chaque ligne, chaque colonne et chaque sous-grille.
