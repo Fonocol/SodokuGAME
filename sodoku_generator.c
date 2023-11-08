@@ -21,36 +21,45 @@ void printMatrix(int matrice[SIZE][SIZE]) {
 
 
 //char nom[],int level
-char* create(char *folderName) {
-     // Nom du dossier à créer ou vérifier
+void create(char *folderName) {
+    // Nom du dossier à créer ou vérifier
     char currentPath[1024];
-    char *folderPath = (char *)malloc(1024);
+    char folderPath[1024]; // Utilisez un tableau plutôt qu'un pointeur
 
     // Obtenir le chemin actuel du répertoire de travail
-    if (GetCurrentDir(currentPath, _getdrive(), sizeof(currentPath)) != NULL) {
+    if (_getcwd(currentPath, sizeof(currentPath)) != NULL) {
         // Concaténer le chemin actuel avec le nom du dossier
-        
-        snprintf(folderPath, sizeof(folderPath), "%s/%s", currentPath, folderName);
+        snprintf(folderPath, sizeof(folderPath), "%s\\%s", currentPath, folderName);
 
         // Vérifier si le dossier existe
         if (_access(folderPath, 0) == -1) {
             // Le dossier n'existe pas, donc on le crée
             if (_mkdir(folderPath) == 0) {
-                printf("Dossier cree avec succes : %s\n", folderPath);
-                snprintf(folderPath, sizeof(folderPath), "%s/data.csv", currentPath);
-                FILE *f = fopen(folderPath,"w");
-                fprintf(f,"NOM,AGE,LEVEL,MAIL\n");
+                printf("Dossier créé avec succès : %s\n", folderPath);
+                // Créer le fichier "data.csv" dans le dossier
+                char csvPath[1024];
+                snprintf(csvPath, sizeof(csvPath), "%s\\data.csv", folderPath);
+                FILE *f = fopen(csvPath, "w");
+                if (f != NULL) {
+                    fprintf(f, "ID;NOM;AGE;LEVEL;MAIL;PAYS;VILLE;RECORD\n");
+                    fclose(f);
+                    printf("Fichier 'data.csv' créé avec succès dans : %s\n", folderPath);
+                } else {
+                    printf("Échec de la création du fichier 'data.csv' dans : %s\n", folderPath);
+                }
             } else {
                 printf("Échec de la création du dossier : %s\n", folderPath);
             }
         } else {
-            printf("Le dossier existe deja : %s\n", folderPath);
+            printf("Le dossier existe déjà : %s\n", folderPath);
         }
     } else {
         printf("Erreur lors de l'obtention du répertoire de travail.\n");
     }
-    return folderPath;
 }
+
+
+
 
 void savedatas(GameInfo jeu){
     FILE * f = fopen("sodoku_doc/data.csv","a");

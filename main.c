@@ -5,7 +5,7 @@ int main(){
     
     srand(time(NULL));
     char *folderName = "sodoku_doc";
-    char *folderPath = create(folderName);
+    create(folderName);
 
     
     
@@ -19,8 +19,5 @@ int main(){
 
     run(SodokuMatrice,folderName);
 
-    
-    
-    free(folderPath);
     return 0 ;
 }
