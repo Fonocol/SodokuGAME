@@ -17,3 +17,5 @@ Le jeu commence généralement avec quelques chiffres déjà placés dans la gri
 
 [2)Théorie des ensembles appliquée au sudoku et algorithmique associée
 Marie-Pierre Falissard, professeure de mathématiques à Pully-Lausanne (collège Champittet)](https://www.vsmp.ch/crm/articles/articles_bulletin/B120_MPF.pdf)
+
+![EILCO](images/download.png)
