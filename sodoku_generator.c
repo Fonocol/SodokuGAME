@@ -417,11 +417,9 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
     }else
     {
         //fonction pour la documentation
-
-
+        printf("==> Description \nLe jeu Sodoku est un casse-tete numerique populaire qui se joue sur une grille de 9x9 cases,\ndivisee en neuf sous-grilles de 3x3 cases. L'objectif du jeu est de remplir toutes les cases\n de la grille avec des chiffres de 1 a 9 de maniere a ce que chaque ligne, chaque colonne et\n chaque sous-grille de 3x3 ne contienne jamais deux fois le meme chiffre. En d'autres termes,\n chaque chiffre de 1 a 9 doit apparaitre une seule fois dans chaque ligne, chaque colonne \net chaque sous-grille.\nLe jeu commence generalement avec quelques chiffres deja places dans la grille, formant un\n puzzle initial. Le joueur doit ensuite utiliser la logique et l'elimination pour determiner\n quels chiffres doivent etre places dans les cases vides pour resoudre le puzzle. Le jeu Sodoku\n est un defi de reflexion et de resolution de problemes qui repose sur la logique et la perspicacite.\n==> Les objectifs du jeu Sodoku sont les suivants :\n1. Remplir la grille de 9x9 avec des chiffres de 1 a 9 de maniere a respecter les regles\nde non-repetition dans les lignes, les colonnes et les sous-grilles.\n2. Resoudre le puzzle en determinant les chiffres manquants de maniere logique, sans deviner.\n3. Completer la grille de maniere efficace en minimisant le nombre d'erreurs.\n4. Ameliorer ses competences en resolution de problemes et en logique pour resoudre des Sodokus\nde niveaux de difficulte croissants.\n");
 
         run(sodokumatrice,folderName);
     }
     
 }
-
