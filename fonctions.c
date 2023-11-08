@@ -202,10 +202,9 @@ bool solution(GameInfo jeu){
         return false;
     }
     
-    
+
 }
-void printbravo(char bravo_message[],int index) {
-    // Assez grand pour contenir le message complet
+void print_generique(char bravo_message[],int index) {
     
     int message_length = strlen(bravo_message);
     
@@ -223,9 +222,7 @@ void printbravo(char bravo_message[],int index) {
             Sleep(1500);
         }
         printf("\n");
-    }
-    
-    
+    }  
 }
 
 

@@ -22,7 +22,11 @@ Marie-Pierre Falissard, professeure de mathématiques à Pully-Lausanne (collèg
 
 ![demo](images/Demo.PNG)
 
+# Gestion des niveaux
 
+![](images/output.png)
+![](images/output1.png)
+![](images/output2.png)
 
 ![EILCO](images/download.png)
 

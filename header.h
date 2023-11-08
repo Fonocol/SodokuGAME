@@ -59,18 +59,24 @@ bool SodokuSolution(int SodokuMatrice[SIZE][SIZE]);
 bool solution(GameInfo jeu);
 void GenerateDagonaleBlocks(int SodokuMatrice[SIZE][SIZE]);
 void grillenonresolu(GameInfo *jeu);
-void printbravo(char bravo_message[],int index);
+void print_generique(char bravo_message[],int index);
 
 
 // Fonction pour créer une nouvelle pile
 PIL* createPIL();
-
-
 // Fonction pour vérifier si la pile est vide
 int isEmptyPIL(PIL* pil);
-
 // Fonction pour ajouter un élément à la pile 
 PIL* enPIL(PIL* pil, GameInfo item);
-
 // Fonction pour retirer un élément de la pile 
 PIL* dePIL(PIL* pil,GameInfo *item);
+
+void tovide(int SodokuMatrice[SIZE][SIZE]);
+void printMatrix(int matrice[SIZE][SIZE]);
+char* create(char *folderName);
+int id_in_data();
+void saveGameInfo(const char *folderPath, const GameInfo *gameInfo,int SodokuMatrice[SIZE][SIZE]);
+int loadGameInfo(const char *folderPath, const char *gameName, GameInfo *gameInfo,int SodokuMatrice[SIZE][SIZE]);
+void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]);
+void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]);
+void run(int sodokumatrice[SIZE][SIZE],char *folderName);

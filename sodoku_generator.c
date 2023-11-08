@@ -1,5 +1,6 @@
 #include "header.h"
 
+
 void tovide(int SodokuMatrice[SIZE][SIZE]){
     for (int i = 0; i < SIZE; i++){
         for (int j = 0; j < SIZE; j++){
@@ -170,20 +171,20 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         temps = currentTime - startTime;
         printf("Temps ecoule : %u secondes\n", temps/1000);
         //printf("enter position x :\n");
-        printbravo("enter position x 0 pour fermer :\n",1);
+        print_generique("enter position x 0 pour fermer :\n",1);
         scanf("%d",&i);
         if (i==0)
         {
-            printbravo("A plus :-)",1);
+            print_generique("A plus :-)",1);
             Sleep(1500);
             saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
             exit(1);
         }
         
         //printf("enter position y :\n");
-        printbravo("enter position y :\n",1);
+        print_generique("enter position y :\n",1);
         scanf("%d",&j);
-        printbravo("value",1);
+        print_generique("value",1);
         printf("[%d][%d]",i,j);
         scanf("%d",&value);
         
@@ -198,14 +199,14 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         
         else if (value ==-1){
             if (jeu.points>=3*POINT){
-                printbravo("la solution a value",1);
+                print_generique("la solution a value",1);
                 printf("[%d][%d] est %d\n",i,j,SodokuMatrice[i-1][j-1]);
                 jeu.points = jeu.points-3*POINT;
                 Sleep(1000);
             }
             else
             {
-                printbravo("Desole vous n'avez pas assey de points :-) ",1);
+                print_generique("Desole vous n'avez pas assey de points :( ",1);
                 Sleep(1000);
             }  
         }
@@ -220,7 +221,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         else
         {
             //printf("this value not a sodoku solution\n");
-            printbravo("this value not a sodoku solution\n",1);
+            print_generique("cette valeur n'est pas valide pour cette case :| \n",1);
             Sleep(1000);
         }
         
@@ -246,7 +247,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 
 
     system("cls");
-    printbravo("Bravo a vous ! vous avez gagne la partie \n",0);
+    print_generique("Bravo !!! vous avez gagne la partie :) \n",0);
     tovide(SodokuMatrice);
     GenerateDagonaleBlocks(SodokuMatrice);
     for (int i = 0; i < SIZE; i++) {
@@ -270,12 +271,12 @@ void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         system("cls");//update
         PrintSodoku(jeu);
         //printf("enter position x :\n");
-        printbravo("enter position x :\n",1);
+        print_generique("enter position x :\n",1);
         scanf("%d",&i);
         //printf("enter position y :\n");
-        printbravo("enter position y :\n",1);
+        print_generique("enter position y :\n",1);
         scanf("%d",&j);
-        printbravo("value",1);
+        print_generique("value",1);
         printf("[%d][%d]",i,j);
         scanf("%d",&value);
         if (value == 0)
@@ -284,7 +285,7 @@ void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         }
         
         else if (value ==-1){
-            printbravo("la solution a value",1);
+            print_generique("la solution a value ",1);
             printf("[%d][%d] est %d\n",i,j,SodokuMatrice[i-1][j-1]);
             Sleep(1000);
         }
@@ -295,7 +296,7 @@ void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         else
         {
             //printf("this value not a sodoku solution\n");
-            printbravo("this value not a sodoku solution\n",1);
+            print_generique("cette valeur n'est pas valide pour cette case :|\n",1);
             Sleep(1000);
         }
         
@@ -304,7 +305,7 @@ void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         Sleep(100);   
     }
     system("cls");
-    printbravo("Bravo a vous ! vous avez gagne \n",0);
+    print_generique("Bravo !!! vous avez gagne \n",0);
     tovide(SodokuMatrice);
     GenerateDagonaleBlocks(SodokuMatrice);
     for (int i = 0; i < SIZE; i++) {
@@ -320,7 +321,7 @@ void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
     int partie;
     //printf("Pour jouer une exhibition, entrez 0. Pour jouer une partie, entrez 1 : ");
-    printbravo("Pour jouer une exhibition, entrez 0. Pour jouer une partie, entrez 1 : ",1);
+    print_generique("Pour jouer une exhibition entrez(0); Pour jouer une partie entrez (1)\npour consulter l'aide et la documentation entrez -1 : ",1);
     scanf("%d", &partie);
 
     if (partie == 0) {
@@ -339,16 +340,16 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
         }
         grillenonresolu(&gameInfo);
         game_free(gameInfo,sodokumatrice);
-    } else {
+    } else if(partie == 1) {
         //printf("0 pour continuer une partie, 1 pour créer une nouvelle partie : ");
-        printbravo("0 pour continuer une partie, 1 pour creer une nouvelle partie : ",1);
+        print_generique("0 pour continuer une partie, 1 pour creer une nouvelle partie : ",1);
         scanf("%d", &partie);
 
         if (partie == 0) {
 
             char gameName[50];
             //printf("Entrez le nom de la partie que vous souhaitez continuer : ");
-            printbravo("Entrez le nom de la partie que vous souhaitez continuer : ",1);
+            print_generique("Entrez le nom de la partie que vous souhaitez continuer : ",1);
             scanf("%s", gameName);
             
             GameInfo gameInfo;
@@ -367,19 +368,19 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
             //id generation
             gameInfo.id = id_in_data();
             //printf("Entrez votre nom : ");
-            printbravo("Entrez votre nom : ",1);
+            print_generique("Entrez votre nom : ",1);
             scanf("%s", gameInfo.name);
             //printf("Entrez votre âge : ");
-            printbravo("Entrez votre age : ",1);
+            print_generique("Entrez votre age : ",1);
             scanf("%d", &gameInfo.age);
             //printf("Entrez votre level entre 0 et 2 : ");
-            printbravo("Entrez votre adresse mail : ",1);
+            print_generique("Entrez votre adresse mail : ",1);
             scanf("%s", gameInfo.mail);
-            printbravo("Entrez votre pays : ",1);
+            print_generique("Entrez votre pays : ",1);
             scanf("%s", gameInfo.pays);
-            printbravo("Entrez votre ville : ",1);
+            print_generique("Entrez votre ville : ",1);
             scanf("%s", gameInfo.ville);
-            printbravo("Entrez votre level: 0=Easy 1=Medium 2=Difficult : ",1);
+            print_generique("Entrez votre level: 0=Easy 1=Medium 2=Difficult : ",1);
             scanf("%d", &gameInfo.level);
             switch (gameInfo.level)
             {
@@ -413,42 +414,14 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
             printf("Nouvelle partie creee : Nom : %s, age : %d\n", gameInfo.name, gameInfo.age);
             game(gameInfo,sodokumatrice);
         }
+    }else
+    {
+        //fonction pour la documentation
+
+
+
+        run(sodokumatrice,folderName);
     }
+    
 }
 
-
-
-
-int main(){
-    
-    
-    srand(time(NULL));
-    char *folderName = "sodoku_doc";
-    char *folderPath = create(folderName);
-
-    
-    
-    int SodokuMatrice[SIZE][SIZE]={VIDE};
-    int SodokuMatriceresolue[SIZE][SIZE]={VIDE};
-
-    //lance le jeu
-    system("cls");//update
-    printbravo("Bienvenue dans le jeu de sudoku developpe dans le cadre du projet tutore Ing1 Info!\n",0);
-    system("cls");
-
-    run(SodokuMatrice,folderName);
-
-    
-    
-    free(folderPath);
-    return 0 ;
-}
-
-
-//appelle total energie
-//cv
-//modifier les infos de la caf
-//identifiant tatal dans les mail 
-//numero actuelle
-
-//https://www.youtube.com/watch?v=shm5FdsyYts
