@@ -48,7 +48,14 @@ bool region(int SodokuMatrice[SIZE][SIZE],int ligne,int colone,int element){
     return false;
 }
 
-void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val){
+void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[11][15]){
+    char ph[14];
+    strcpy(ph,phrases[rand()%9]);
+    printf("\033[47m\033[31m            SODOKU            \033[0m\n");
+    printf("\033[47m\033[31m        %s        \033[0m\n",ph);
+    //printf("\033[0m\n"); // Réinitialiser la couleur après la ligne 1
+
+
     for (int i = -1; i < SIZE; i++) {
         for (int j = -1; j < SIZE; j++) {
             if (i==-1)
@@ -132,6 +139,7 @@ void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val){
         }
         printf("\033[0m\n"); // Réinitialiser la couleur après chaque ligne
     }
+    printf("\033[47m\033[31m            SODOKU            \033[0m\n");
     printf("A tout moment vous pouvez obtenir\nde l'aide en entrant -1 ou\nretour en entrant 0 sur value\n");
     printf("Level : %s \n",gameinfo._level);
     printf("Partie: %d \n",gameinfo.partie);

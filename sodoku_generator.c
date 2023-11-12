@@ -162,6 +162,18 @@ int loadGameInfo(const char *folderPath, const char *gameName, GameInfo *gameInf
 }
 
 void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
+    char phrases[11][15] = {
+        "Concentration!",
+        "Vous reussirez",
+        "Avancez bien! ",
+        "Perseverez!   ",
+        "Resolvez-le!  ",
+        "Succes proche!",
+        "Ne lachez pas!",
+        "Toujours plus!",
+        "Determination!",
+        "Victoire sure!",
+    };
     DWORD startTime = GetTickCount();
     int temps;
     
@@ -173,7 +185,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
     while (!solution(jeu))
     {
         system("cls");//update
-        afficher_en_Damier(jeu,i-1,j-1,value);
+        afficher_en_Damier(jeu,i-1,j-1,value,phrases);
         //PrintSodoku(SodokuMatrice);
         // À chaque itération de la boucle de jeu :
         DWORD currentTime = GetTickCount();
