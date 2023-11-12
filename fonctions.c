@@ -34,6 +34,110 @@ void PrintSodoku(GameInfo gameInfo){
     printf("-------------------------------------------------------------\n");
 }
 
+bool region(int SodokuMatrice[SIZE][SIZE],int ligne,int colone,int element){
+    int StartLigne = ligne - ligne%3;
+    int StartColone = colone - colone%3;
+
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++){
+            if (SodokuMatrice[i+StartLigne][j+StartColone]== element){
+                return true;
+            }  
+        }
+    }
+    return false;
+}
+
+void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val){
+    for (int i = -1; i < SIZE; i++) {
+        for (int j = -1; j < SIZE; j++) {
+            if (i==-1)
+            {
+                printf(" %d ",j+1);
+            }
+            else
+            {
+                if (j==-1)
+                {
+                    printf(" %d ",i+1);
+                }
+                else
+                {
+                    // Alterner les couleurs en fonction de la somme des indices
+                    if ((i + j) % 2 == 0) {
+                        // Case de couleur claire avec caractère noir
+                        if (gameinfo.matrice[i][j]==0)
+                        {
+                            printf("\033[47m   ");
+                        }else if (gameinfo.matrice[i][j]!=0)
+                        {
+                            if (gameinfo.matrice[i][j]==val)
+                            {
+                                if (i==line || j==col)
+                                {
+                                    printf("\033[47m\033[31m %d ",gameinfo.matrice[i][j]);
+                                }else if (((line-line%3)==(i - i%3) && (col-col%3)==(j - j%3)) &&  region(gameinfo.matrice,line,col,val))  //cette condition montre que les variables col line i et j sont dans la mm region
+                                {
+                                    printf("\033[47m\033[31m %d ",gameinfo.matrice[i][j]);
+                                }
+                                else
+                                {
+                                    printf("\033[47m\033[32m %d ",gameinfo.matrice[i][j]);
+                                }
+
+                            }else
+                            {
+                                printf("\033[47m\033[32m %d ",gameinfo.matrice[i][j]);
+                            }
+                            
+                            
+                            //printf("\033[47m\033[32m %d ",gameinfo.matrice[i][j]);
+                        }
+                        
+                    } 
+                    else {
+                        if (gameinfo.matrice[i][j]==0)
+                        {
+                            printf("\033[40m   ");
+                        }else if (gameinfo.matrice[i][j]!=0)
+                        {
+                            if (gameinfo.matrice[i][j]==val)
+                            {
+                                if (i==line || j==col)
+                                {
+                                    printf("\033[40m\033[31m %d ",gameinfo.matrice[i][j]);
+                                }else if (((line-line%3)==(i - i%3) && (col-col%3)==(j - j%3)) &&  region(gameinfo.matrice,line,col,val))  //cette condition montre que les variables col line i et j sont dans la mm region
+                                {
+                                    printf("\033[40m\033[31m %d ",gameinfo.matrice[i][j]);
+                                }
+                                else
+                                {
+                                    printf("\033[40m\033[32m %d ",gameinfo.matrice[i][j]);
+                                }
+                                
+
+                            }else
+                            {
+                                printf("\033[40m\033[32m %d ",gameinfo.matrice[i][j]);
+                            }
+
+                        }
+                    }
+                }
+                
+                
+            }
+            
+
+        }
+        printf("\033[0m\n"); // Réinitialiser la couleur après chaque ligne
+    }
+    printf("A tout moment vous pouvez obtenir\nde l'aide en entrant -1 ou\nretour en entrant 0 sur value\n");
+    printf("Level : %s \n",gameinfo._level);
+    printf("Partie: %d \n",gameinfo.partie);
+    printf("Points: %d \n",gameinfo.points);
+}
+
 bool IsSodoku(int SodokuMatrice[SIZE][SIZE],int ligne, int colone,int element){
 
     for (int col = 0; col < SIZE; col++){

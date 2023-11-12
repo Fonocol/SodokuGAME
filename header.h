@@ -73,6 +73,7 @@ PIL* dePIL(PIL* pil,GameInfo *item);
 
 void tovide(int SodokuMatrice[SIZE][SIZE]);
 void printMatrix(int matrice[SIZE][SIZE]);
+void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val);
 void create(char *folderName);
 int id_in_data();
 void saveGameInfo(const char *folderPath, const GameInfo *gameInfo,int SodokuMatrice[SIZE][SIZE]);

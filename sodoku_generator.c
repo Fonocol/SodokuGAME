@@ -169,11 +169,11 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 
     PIL *back = createPIL();
     back = enPIL(back,jeu);
-    int i,j,value;
+    int i=-2,j=-2,value=-1;
     while (!solution(jeu))
     {
         system("cls");//update
-        PrintSodoku(jeu);
+        afficher_en_Damier(jeu,i-1,j-1,value);
         //PrintSodoku(SodokuMatrice);
         // À chaque itération de la boucle de jeu :
         DWORD currentTime = GetTickCount();
@@ -203,15 +203,19 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
             {
                 back = dePIL(back,&jeu);
             }
+            //value =-1;
             
         }
         
         else if (value ==-1){
             if (jeu.points>=3*POINT){
-                print_generique("la solution a value",1);
-                printf("[%d][%d] est %d\n",i,j,SodokuMatrice[i-1][j-1]);
+                //print_generique("la solution a value",1);
+                //printf("[%d][%d] est %d\n",i,j,SodokuMatrice[i-1][j-1]);
+                
+                jeu.matrice[i-1][j-1]=SodokuMatrice[i-1][j-1];
                 jeu.points = jeu.points-3*POINT;
-                Sleep(1000);
+                value =SodokuMatrice[i-1][j-1];
+                Sleep(500);
             }
             else
             {
@@ -230,8 +234,11 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         else
         {
             //printf("this value not a sodoku solution\n");
-            print_generique("cette valeur n'est pas valide pour cette case :| \n",1);
-            Sleep(1000);
+            //print_generique("cette valeur n'est pas valide pour cette case :| \n",1);
+            //system("cls");
+            //Sleep(100);
+            //afficher_en_Damier(jeu,i-1,j-1,value);
+            //Sleep(3000);
         }
         
 
