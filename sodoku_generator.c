@@ -117,6 +117,13 @@ void saveGameInfo(const char *folderPath, const GameInfo *gameInfo,int SodokuMat
                 fprintf(file, "solution[%d][%d] : %d\n",i,j, SodokuMatrice[i][j]);
             }
         }
+
+        //save matricenonmodif
+        for (int i = 0; i < SIZE; i++) {;
+            for (int j = 0; j < SIZE; j++) {
+                fprintf(file, "NomModifMatrice[%d][%d] : %d\n",i,j, gameInfo->matricenonmodif[i][j]);
+            }
+        }
         // Écrivez d'autres informations spécifiques à la partie ici
         fclose(file);
     } else {
@@ -141,15 +148,23 @@ int loadGameInfo(const char *folderPath, const char *gameName, GameInfo *gameInf
         fscanf(file, "Partie : %d\n", &gameInfo->partie);
         fscanf(file, "Points : %d\n", &gameInfo->points);
         fscanf(file, "Record : %d\n", &gameInfo->record);
+        //matrice
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 fscanf(file, "[%d][%d] : %d\n",&i,&j,&gameInfo->matrice[i][j]);
             }
         }
-
+        //solution
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 fscanf(file, "solution[%d][%d] : %d\n",&i,&j,&SodokuMatrice[i][j]);
+            }
+        }
+        // matrice nonModif
+        //matricenonmodif
+        for (int i = 0; i < SIZE; i++) {;
+            for (int j = 0; j < SIZE; j++) {
+                fscanf(file, "NomModifMatrice[%d][%d] : %d\n",&i,&j, &gameInfo->matricenonmodif[i][j]);
             }
         }
         // Lisez d'autres informations spécifiques à la partie ici
@@ -192,8 +207,13 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         temps = currentTime - startTime;
         printf("Temps ecoule : %u secondes\n", temps/1000);
         //printf("enter position x :\n");
-        print_generique("enter position x 0 pour fermer :\n",1);
-        scanf("%d",&i);
+        do
+        {
+            print_generique("enter position x 0 pour fermer :\n",1);
+            scanf("%d",&i);
+        } while (i<0 || i>10);
+        
+ 
         if (i==0)
         {
             print_generique("A plus :-)",1);
@@ -203,13 +223,26 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         }
         
         //printf("enter position y :\n");
-        print_generique("enter position y :\n",1);
-        scanf("%d",&j);
-        print_generique("value",1);
-        printf("[%d][%d]",i,j);
-        scanf("%d",&value);
-        
-        if (value == 0)
+        do
+        {
+            print_generique("enter position y :\n",1);
+            scanf("%d",&j);
+        } while (j<=0 || j>10);
+
+        do
+        {
+            print_generique("value",1);
+            printf("[%d][%d]\n",i,j);
+            scanf("%d",&value);
+        } while (value<-1 || value>10);
+
+        //non modif value
+        if (jeu.matricenonmodif[i-1][j-1] != 0)
+        {
+            value =jeu.matricenonmodif[i-1][j-1];
+        }
+
+        else if (value == 0)
         {
             if (!isEmptyPIL(back))
             {

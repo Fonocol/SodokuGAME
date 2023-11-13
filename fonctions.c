@@ -140,10 +140,15 @@ void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[
         printf("\033[0m\n"); // Réinitialiser la couleur après chaque ligne
     }
     printf("\033[47m\033[31m            SODOKU            \033[0m\n");
-    printf("A tout moment vous pouvez obtenir\nde l'aide en entrant -1 ou\nretour en entrant 0 sur value\n");
-    printf("Level : %s \n",gameinfo._level);
+    printf("Action\tRetour\tAide\n");
+    printf("Value \t0\t-1\n");
+    printf("-----------------------------\n");
+    printf("Level \tPartie\tPoints\n");
+    printf("%s \t%d\t%d\n",gameinfo._level,gameinfo.partie,gameinfo.points);
+    //printf("A tout moment vous pouvez obtenir\nde l'aide en entrant -1 ou\nretour en entrant 0 sur value\n");
+    /*printf("Level : %s \n",gameinfo._level);
     printf("Partie: %d \n",gameinfo.partie);
-    printf("Points: %d \n",gameinfo.points);
+    printf("Points: %d \n",gameinfo.points);*/
 }
 
 bool IsSodoku(int SodokuMatrice[SIZE][SIZE],int ligne, int colone,int element){
@@ -284,6 +289,14 @@ void grillenonresolu(GameInfo *jeu){  //grillenonresolu(int SodokuMatrice[SIZE][
         } while (1);
         
     }
+
+    // copier matrice a matrice non modifiable
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            jeu->matricenonmodif[i][j] = jeu->matrice[i][j];
+        }  
+    }
+    
     
 }
 

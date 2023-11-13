@@ -36,6 +36,7 @@ typedef struct GameInfo{
     char pays[15];
     int age;
     int matrice[SIZE][SIZE];
+    int matricenonmodif[SIZE][SIZE];
     int partie;
     int points;
     LEVEL level;
