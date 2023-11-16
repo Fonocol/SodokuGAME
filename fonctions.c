@@ -134,17 +134,20 @@ void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[
                 
                 
             }
-            
+
 
         }
         printf("\033[0m\n"); // Réinitialiser la couleur après chaque ligne
     }
     printf("\033[47m\033[31m            SODOKU            \033[0m\n");
-    printf("Action\tRetour\tAide\n");
-    printf("Value \t0\t-1\n");
-    printf("-----------------------------\n");
-    printf("Level \tPartie\tPoints\n");
-    printf("%s \t%d\t%d\n",gameinfo._level,gameinfo.partie,gameinfo.points);
+    printf("Action | Retour | Aide       |\n");
+    printf("_______|________|____________|\n");
+    printf("Value  | 0      | -1         |\n");
+    printf("_______|________|____________|\n");
+    printf("Level  | Partie | Points     |\n");
+    printf("_______|________|____________|\n");
+    printf("%s\t %d\t  %d\n",gameinfo._level,gameinfo.partie,gameinfo.points);
+    printf("_______|________|____________|\n");
     //printf("A tout moment vous pouvez obtenir\nde l'aide en entrant -1 ou\nretour en entrant 0 sur value\n");
     /*printf("Level : %s \n",gameinfo._level);
     printf("Partie: %d \n",gameinfo.partie);
@@ -335,7 +338,7 @@ void print_generique(char bravo_message[],int index) {
     
     for (int i = 0; i < message_length; i++) {
         printf("%c", bravo_message[i]);
-        Sleep(100);
+        Sleep(30);
     }
     if (index==0)
     {
@@ -344,7 +347,7 @@ void print_generique(char bravo_message[],int index) {
         for (int i = 0; i < 3; i++)
         {
             printf(".");
-            Sleep(1500);
+            Sleep(800);
         }
         printf("\n");
     }  

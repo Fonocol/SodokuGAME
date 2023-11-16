@@ -82,3 +82,4 @@ int loadGameInfo(const char *folderPath, const char *gameName, GameInfo *gameInf
 void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]);
 void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]);
 void run(int sodokumatrice[SIZE][SIZE],char *folderName);
+
