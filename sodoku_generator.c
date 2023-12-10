@@ -91,7 +91,7 @@ int id_in_data(){
 
 void saveGameInfo(const char *folderPath, const GameInfo *gameInfo,int SodokuMatrice[SIZE][SIZE]) {
     char filePath[256];
-    snprintf(filePath, sizeof(filePath), "%s/%s.txt", folderPath, gameInfo->name);
+    snprintf(filePath, sizeof(filePath), "%s/%s", folderPath, gameInfo->name);
     FILE *file = fopen(filePath, "w");
     
     if (file) {
@@ -133,7 +133,7 @@ void saveGameInfo(const char *folderPath, const GameInfo *gameInfo,int SodokuMat
 
 int loadGameInfo(const char *folderPath, const char *gameName, GameInfo *gameInfo,int SodokuMatrice[SIZE][SIZE]) {
     char filePath[256];
-    snprintf(filePath, sizeof(filePath), "%s/%s.txt", folderPath, gameName);
+    snprintf(filePath, sizeof(filePath), "%s/%s", folderPath, gameName);
     FILE *file = fopen(filePath, "r");
     
     if (file) {
@@ -248,14 +248,14 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
                 print_generique("value",1);
                 printf("[%d][%d]\n",i,j);
                 scanf("%d",&value);
-            } while (value<-1 || value>10);
+            } while (value<-2 || value>10);
         }
         
         
 
 
         //non modif value
-        if (jeu.matricenonmodif[i-1][j-1] != 0)
+        if (value >0 && jeu.matricenonmodif[i-1][j-1] != 0)
         {
             value =jeu.matricenonmodif[i-1][j-1];
         }
@@ -270,7 +270,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
             
         }
         
-        else if (value ==-1){
+        else if (value ==-2){
             if (jeu.points>=3*POINT){
                 //print_generique("la solution a value",1);
                 //printf("[%d][%d] est %d\n",i,j,SodokuMatrice[i-1][j-1]);
@@ -287,7 +287,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
             }  
         }
         
-        else if (IsSodoku(jeu.matrice,i-1,j-1,value)){
+        else if ( value >0 && IsSodoku(jeu.matrice,i-1,j-1,value)){
             jeu.matrice[i-1][j-1]=value;
             jeu.points = jeu.points+POINT;
             saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
@@ -398,6 +398,18 @@ void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 }
 
 void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
+    char phrases[11][15] = {
+        "Concentration!",
+        "Vous reussirez",
+        "Avancez bien! ",
+        "Perseverez!   ",
+        "Resolvez-le!  ",
+        "Succes proche!",
+        "Ne lachez pas!",
+        "Toujours plus!",
+        "Determination!",
+        "Victoire sure!",
+    };
     tovide(sodokumatrice);
     int partie;
     //printf("Pour jouer une exhibition, entrez 0. Pour jouer une partie, entrez 1 : ");
@@ -498,8 +510,40 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
     }else
     {
         //fonction pour la documentation
-        print_generique("==> Description \nLe jeu Sodoku est un casse-tete numerique populaire qui se joue sur une grille de 9x9 cases,\ndivisee en neuf sous-grilles de 3x3 cases. L'objectif du jeu est de remplir toutes les cases\n de la grille avec des chiffres de 1 a 9 de maniere a ce que chaque ligne, chaque colonne et\n chaque sous-grille de 3x3 ne contienne jamais deux fois le meme chiffre. En d'autres termes,\n chaque chiffre de 1 a 9 doit apparaitre une seule fois dans chaque ligne, chaque colonne \net chaque sous-grille.\nLe jeu commence generalement avec quelques chiffres deja places dans la grille, formant un\n puzzle initial. Le joueur doit ensuite utiliser la logique et l'elimination pour determiner\n quels chiffres doivent etre places dans les cases vides pour resoudre le puzzle. Le jeu Sodoku\n est un defi de reflexion et de resolution de problemes qui repose sur la logique et la perspicacite.\n==> Les objectifs du jeu Sodoku sont les suivants :\n1. Remplir la grille de 9x9 avec des chiffres de 1 a 9 de maniere a respecter les regles\nde non-repetition dans les lignes, les colonnes et les sous-grilles.\n2. Resoudre le puzzle en determinant les chiffres manquants de maniere logique, sans deviner.\n3. Completer la grille de maniere efficace en minimisant le nombre d'erreurs.\n4. Ameliorer ses competences en resolution de problemes et en logique pour resoudre des Sodokus\nde niveaux de difficulte croissants.\n",1);
+        //aide237france.txt
+        print_generique("\n==> Les objectifs du jeu Sodoku sont les suivants :\n  1. Remplir la grille de 9x9 avec des chiffres de 1 a 9 de maniere a respecter les regles\n  de non-repetition dans les lignes, les colonnes et les sous-grilles.\n  2. Resoudre le puzzle en determinant les chiffres manquants de maniere logique, sans deviner.\n  3. Completer la grille de maniere efficace en minimisant le nombre d'erreurs.\n  4. Ameliorer ses competences en resolution de problemes et en logique pour resoudre des Sodokus\n  de niveaux de difficulte croissants.\n",1);
+        char gameName[50] = "aide237france";
+        GameInfo gameInfo;
+        if (loadGameInfo("sodoku_doc", gameName, &gameInfo,sodokumatrice)) {
+            
+            printf("\n");
+            print_generique("1)essayons d'entrer la valeur 6\na la case [5][8]\n",1);
+            gameInfo.matrice[4][7]=6;
+            afficher_en_Damier(gameInfo,4,7,6,phrases);
+            print_generique("toutes les contraintes du sodoku\netant verivier la valeur 6 est bien \nvalable pour[5][8]\n",1);
+            printf("\n");
+            print_generique("2)essayons d'entrer la valeur 8\na la case [7][7]\n",1);
+            gameInfo.matrice[6][6]=8;
+            afficher_en_Damier(gameInfo,6,6,8,phrases);
+            printf("\n");
+            gameInfo.matrice[6][6]=0;
+            print_generique("ici les condition de sodoku en\nligne et en colone ne sont pas respecter \ndonc 8 est invalide pour cette cellule\n",1);
+            printf("\n");
+            print_generique("3)essayons d'entrer la valeur 1 a\nla case [2][2]\n",1);
+            gameInfo.matrice[1][1]=1;
+            afficher_en_Damier(gameInfo,1,1,1,phrases);
+            printf("\n");
+            gameInfo.matrice[1][1]=0;
+            print_generique("ici les condition de sodoku en \nligne en colone et dans la region ne sont \npas respecter donc 1 est invalide pour \ncette cellule\n",1);
+            afficher_en_Damier(gameInfo,1,1,-1,phrases);
+            
+
+        } else {
+            printf("le Chargement de l'aide a echoue\n");
+        }
+        printf("\n");       
         run(sodokumatrice,folderName);
     }
     
 }
+

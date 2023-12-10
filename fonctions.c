@@ -142,7 +142,7 @@ void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[
     printf("\033[47m\033[31m            SODOKU            \033[0m\n");
     printf("Action | Retour | Aide       |\n");
     printf("_______|________|____________|\n");
-    printf("Value  | 0      | -1         |\n");
+    printf("Value  | 0      | -2         |\n");
     printf("_______|________|____________|\n");
     printf("Level  | Partie | Points     |\n");
     printf("_______|________|____________|\n");
