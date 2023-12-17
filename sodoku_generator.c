@@ -309,6 +309,11 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         
         
     }
+    //timer
+    system("cls");
+    afficher_en_Damier(jeu,i-1,j-1,value,phrases);
+    Sleep(500);
+
     free(back);
     
     if(jeu.record==-1){
@@ -383,6 +388,8 @@ void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 
         Sleep(100);   
     }
+    
+
     system("cls");
     print_generique("Bravo !!! vous avez gagne \n",0);
     tovide(SodokuMatrice);
@@ -535,9 +542,24 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
             printf("\n");
             gameInfo.matrice[1][1]=0;
             print_generique("ici les condition de sodoku en \nligne en colone et dans la region ne sont \npas respecter donc 1 est invalide pour \ncette cellule\n",1);
-            afficher_en_Damier(gameInfo,1,1,-1,phrases);
             
-
+            printf("\n");
+            print_generique("4)apres avoir mis les valeur en\nrestant fidele aux regles du sodoku on a\n",1);
+            gameInfo.matrice[1][1] = 1;
+            gameInfo.matrice[8][3] = 8;
+            gameInfo.matrice[8][4] = 2;
+            gameInfo.matrice[8][5] = 9;
+            gameInfo.matrice[6][2] = 7;
+            gameInfo.matrice[6][3] = 6;
+            gameInfo.matrice[6][4] = 3;
+            gameInfo.matrice[6][5] = 1;
+            gameInfo.matrice[0][0] = 8;
+            gameInfo.matrice[0][1] = 2;
+            gameInfo.matrice[0][2] = 4;
+            gameInfo.matrice[5][3] = 9;
+            gameInfo.matrice[5][5] = 3;
+            gameInfo.matrice[5][6] = 2;
+            afficher_en_Damier(gameInfo,1,1,-1,phrases);
         } else {
             printf("le Chargement de l'aide a echoue\n");
         }
