@@ -64,7 +64,7 @@ void create(char *folderName) {
 void savedatas(GameInfo jeu){
     FILE * f = fopen("sodoku_doc/data.csv","a");
 
-    fprintf(f,"%d;%s;%d;%s;%s;%s;%s;%d\n",jeu.id,jeu.name,jeu.age,jeu._level,jeu.mail,jeu.pays,jeu.ville,-1);
+    fprintf(f,"%d;%s;%d;%s;%s;%s;%s;%d\n",jeu.id,jeu.name,jeu.age,jeu._level,jeu.mail,jeu.pays,jeu.ville,jeu.record);
 
     fclose(f);
 }
@@ -239,8 +239,9 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
                 char commande[100];
                 snprintf(commande, sizeof(commande), "start %s", fichier);
                 system(commande);
-                value=-1;
+                //value=-1;
             }
+            value=-1;
         }else
         {
             do
@@ -272,13 +273,18 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         
         else if (value ==-2){
             if (jeu.points>=3*POINT){
-                //print_generique("la solution a value",1);
-                //printf("[%d][%d] est %d\n",i,j,SodokuMatrice[i-1][j-1]);
+                if (jeu.matrice[i-1][j-1] == 0)
+                {
+                    jeu.matrice[i-1][j-1]=SodokuMatrice[i-1][j-1];
+                    jeu.points = jeu.points-3*POINT;
+                    value =SodokuMatrice[i-1][j-1];
+                    Sleep(500);
+                }else
+                {
+                    print_generique("cette case est deja valide !",1);
+                    Sleep(1000);
+                }
                 
-                jeu.matrice[i-1][j-1]=SodokuMatrice[i-1][j-1];
-                jeu.points = jeu.points-3*POINT;
-                value =SodokuMatrice[i-1][j-1];
-                Sleep(500);
             }
             else
             {
@@ -317,14 +323,16 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
     free(back);
     
     if(jeu.record==-1){
-        jeu.record = temps;
+        jeu.record = (temps/1000);
+        savedatas(jeu);
     }
     else
     {
-        if (temps<jeu.record)
+        if ((temps/1000)<jeu.record)
         {
-            jeu.record = temps;
+            jeu.record = (temps/1000);
         }
+        savedatas(jeu);
         
     }
     
@@ -430,6 +438,7 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
         gameInfo.age = 0;
         gameInfo.points = 0;
         gameInfo.partie = 0;
+        gameInfo.record = -1;
         gameInfo.level = rand()%3;
         GenerateDagonaleBlocks(sodokumatrice);
         for (int i = 0; i < SIZE; i++) {

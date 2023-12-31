@@ -253,7 +253,7 @@ void grillenonresolu(GameInfo *jeu){  //grillenonresolu(int SodokuMatrice[SIZE][
     if (jeu->level==easy)
     {
         //nombre_de_zero = 0.06*SIZE*SIZE;
-        nombre_de_zero= 5 + 30*(1-exp(-jeu->partie/3));// 5-30
+        nombre_de_zero= 1 + 2*(1-exp(-jeu->partie/3));// 5-30
         /*if (nombre_de_zero >= 29)
         {
             jeu->level= medium;
