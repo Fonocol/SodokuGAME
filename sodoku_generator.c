@@ -288,7 +288,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
             }
             else
             {
-                print_generique("Desole vous n'avez pas assey de points :( ",1);
+                print_generique("Desole vous n'avez pas assey de points |_(o o)_|",1);
                 Sleep(1000);
             }  
         }
@@ -339,7 +339,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 
 
     system("cls");
-    print_generique("Bravo !!! vous avez gagne la partie :) \n",0);
+    print_generique("Bravo !!! vous avez gagne la partie |_(00)_| \n",0);
     tovide(SodokuMatrice);
     GenerateDagonaleBlocks(SodokuMatrice);
     for (int i = 0; i < SIZE; i++) {
