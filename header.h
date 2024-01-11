@@ -40,7 +40,9 @@ typedef struct GameInfo{
     int partie;
     int points;
     LEVEL level;
+    int currenttime;
     int record;
+    int tempsmoyen;
     // Ajoutez d'autres informations spécifiques à la partie ici
 } GameInfo;
 

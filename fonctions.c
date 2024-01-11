@@ -148,6 +148,10 @@ void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[
     printf("_______|________|____________|\n");
     printf("%s\t %d\t  %d\n",gameinfo._level,gameinfo.partie,gameinfo.points);
     printf("_______|________|____________|\n");
+    printf("Temps moyen par partie: %d s\n",gameinfo.tempsmoyen);
+    printf("_____________________________|\n");
+    printf("Temps ecoule pour la partie %d: %u s\n",gameinfo.partie, gameinfo.currenttime);
+    printf("_____________________________|\n");
     //printf("A tout moment vous pouvez obtenir\nde l'aide en entrant -1 ou\nretour en entrant 0 sur value\n");
     /*printf("Level : %s \n",gameinfo._level);
     printf("Partie: %d \n",gameinfo.partie);

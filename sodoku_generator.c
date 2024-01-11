@@ -106,6 +106,8 @@ void saveGameInfo(const char *folderPath, const GameInfo *gameInfo,int SodokuMat
         fprintf(file, "Partie : %d\n", gameInfo->partie);
         fprintf(file, "Points : %d\n", gameInfo->points);
         fprintf(file, "Record : %d\n", gameInfo->record);
+        fprintf(file, "currenttime : %d\n", gameInfo->currenttime);
+        fprintf(file, "tempsmoyen : %d\n", gameInfo->tempsmoyen);
         for (int i = 0; i < SIZE; i++) {;
             for (int j = 0; j < SIZE; j++) {
                 fprintf(file, "[%d][%d] : %d\n",i,j, gameInfo->matrice[i][j]);
@@ -148,6 +150,8 @@ int loadGameInfo(const char *folderPath, const char *gameName, GameInfo *gameInf
         fscanf(file, "Partie : %d\n", &gameInfo->partie);
         fscanf(file, "Points : %d\n", &gameInfo->points);
         fscanf(file, "Record : %d\n", &gameInfo->record);
+        fscanf(file, "currenttime : %d\n", &gameInfo->currenttime);
+        fscanf(file, "tempsmoyen : %d\n", &gameInfo->tempsmoyen);
         //matrice
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -199,14 +203,17 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
     int i=-2,j=-2,value=-1;
     while (!solution(jeu))
     {
-        system("cls");//update
-        afficher_en_Damier(jeu,i-1,j-1,value,phrases);
+        
         //PrintSodoku(SodokuMatrice);
         // À chaque itération de la boucle de jeu :
+
         DWORD currentTime = GetTickCount();
         temps = currentTime - startTime;
-        printf("Temps ecoule : %u secondes\n", temps/1000);
-        printf("_____________________________|\n");
+        jeu.currenttime = jeu.currenttime + (temps/1000);
+        saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);  //save time
+        system("cls");//update
+        afficher_en_Damier(jeu,i-1,j-1,value,phrases);
+
         //printf("enter position x :\n");    
         do
         {
@@ -296,7 +303,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         else if ( value >0 && IsSodoku(jeu.matrice,i-1,j-1,value)){
             jeu.matrice[i-1][j-1]=value;
             jeu.points = jeu.points+POINT;
-            saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
+            //saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
 
             back = enPIL(back,jeu);
         }
@@ -312,25 +319,30 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         
 
         Sleep(100);
-        
+        //save data
+        saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
+  
         
     }
     //timer
+    DWORD currentTime = GetTickCount();
+    temps = currentTime - startTime;
+    jeu.currenttime = jeu.currenttime + (temps/1000);
     system("cls");
     afficher_en_Damier(jeu,i-1,j-1,value,phrases);
     Sleep(500);
 
     free(back);
-    
+    //ajustement du record
     if(jeu.record==-1){
-        jeu.record = (temps/1000);
+        jeu.record = (jeu.currenttime);
         savedatas(jeu);
     }
     else
     {
-        if ((temps/1000)<jeu.record)
+        if ((jeu.currenttime)<jeu.record)
         {
-            jeu.record = (temps/1000);
+            jeu.record = (jeu.currenttime);
         }
         savedatas(jeu);
         
@@ -348,7 +360,11 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         }
     }
     grillenonresolu(&jeu);
+    //calcul temps moyen
+    jeu.tempsmoyen  = (jeu.tempsmoyen*(jeu.partie-1) + (jeu.currenttime))/jeu.partie;
     jeu.partie=jeu.partie+1;
+    
+    jeu.currenttime = 0;
     saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
     game(jeu,SodokuMatrice);
 
@@ -509,6 +525,8 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
             gameInfo.partie =1;
             gameInfo.points = 0;
             gameInfo.record = -1;
+            gameInfo.tempsmoyen = 0;
+            gameInfo.currenttime = 0;
             GenerateDagonaleBlocks(sodokumatrice);
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
@@ -528,7 +546,7 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
         //fonction pour la documentation
         //aide237france.txt
         print_generique("\n==> Les objectifs du jeu Sodoku sont les suivants :\n  1. Remplir la grille de 9x9 avec des chiffres de 1 a 9 de maniere a respecter les regles\n  de non-repetition dans les lignes, les colonnes et les sous-grilles.\n  2. Resoudre le puzzle en determinant les chiffres manquants de maniere logique, sans deviner.\n  3. Completer la grille de maniere efficace en minimisant le nombre d'erreurs.\n  4. Ameliorer ses competences en resolution de problemes et en logique pour resoudre des Sodokus\n  de niveaux de difficulte croissants.\n",1);
-        char gameName[50] = "aide237france";
+        char gameName[] = "AideSUdoku";
         GameInfo gameInfo;
         if (loadGameInfo("sodoku_doc", gameName, &gameInfo,sodokumatrice)) {
             
