@@ -209,7 +209,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 
         DWORD currentTime = GetTickCount();
         temps = currentTime - startTime;
-        jeu.currenttime = jeu.currenttime + (temps/1000);
+        jeu.currenttime = jeu.currenttime + (temps/10000);
         saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);  //save time
         system("cls");//update
         afficher_en_Damier(jeu,i-1,j-1,value,phrases);
@@ -238,7 +238,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         } while (j<0 || j>10);
         if (j==0)
         {
-            char* fichier = "C:/Users/user/Desktop/lerning/SodokuGAME/sodoku_doc/data.csv";
+            char* fichier = "sodoku_doc/data.csv";
             if (fichier)
             {
                 // Utilisation de la commande système pour ouvrir le fichier
@@ -327,7 +327,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
     //timer
     DWORD currentTime = GetTickCount();
     temps = currentTime - startTime;
-    jeu.currenttime = jeu.currenttime + (temps/1000);
+    jeu.currenttime = jeu.currenttime + (temps/10000);
     system("cls");
     afficher_en_Damier(jeu,i-1,j-1,value,phrases);
     Sleep(500);

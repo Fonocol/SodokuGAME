@@ -20,7 +20,7 @@ Marie-Pierre Falissard, professeure de mathématiques à Pully-Lausanne (collèg
 
 # Demo :
 
-![demo](images/Demo.PNG)
+![demo](images/fin.PNG)
 
 # Gestion des niveaux
 
