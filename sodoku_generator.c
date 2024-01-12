@@ -194,11 +194,14 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         "Victoire sure!",
     };
     DWORD startTime = GetTickCount();
+    DWORD currentTime = GetTickCount();
+    
     int temps;
     
 
 
     PIL *back = createPIL();
+    int back_time=0;
     back = enPIL(back,jeu);
     int i=-2,j=-2,value=-1;
     while (!solution(jeu))
@@ -206,11 +209,8 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         
         //PrintSodoku(SodokuMatrice);
         // À chaque itération de la boucle de jeu :
-
-        DWORD currentTime = GetTickCount();
-        temps = currentTime - startTime;
-        jeu.currenttime = jeu.currenttime + (temps/10000);
-        saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);  //save time
+        startTime = GetTickCount();
+        
         system("cls");//update
         afficher_en_Damier(jeu,i-1,j-1,value,phrases);
 
@@ -272,7 +272,9 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         {
             if (!isEmptyPIL(back))
             {
+                back_time = jeu.currenttime;
                 back = dePIL(back,&jeu);
+                jeu.currenttime = back_time;
             }
             //value =-1;
             
@@ -301,9 +303,12 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         }
         
         else if ( value >0 && IsSodoku(jeu.matrice,i-1,j-1,value)){
+            if (jeu.matrice[i-1][j-1]=value == VIDE)
+            {
+                jeu.points = jeu.points+POINT;
+            }
             jeu.matrice[i-1][j-1]=value;
-            jeu.points = jeu.points+POINT;
-            //saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
+            
 
             back = enPIL(back,jeu);
         }
@@ -320,14 +325,15 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 
         Sleep(100);
         //save data
+        currentTime = GetTickCount();
+        temps = currentTime - startTime;
+        jeu.currenttime = jeu.currenttime + (temps/1000);
         saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
-  
         
+       
+ 
     }
-    //timer
-    DWORD currentTime = GetTickCount();
-    temps = currentTime - startTime;
-    jeu.currenttime = jeu.currenttime + (temps/10000);
+
     system("cls");
     afficher_en_Damier(jeu,i-1,j-1,value,phrases);
     Sleep(500);
