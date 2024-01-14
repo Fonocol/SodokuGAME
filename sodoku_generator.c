@@ -434,6 +434,44 @@ void game_free(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 
 }
 
+void printSudokuLogo(int val) {
+    system("cls");
+
+    printf("\n\033[0;96m");
+    printf("                   +-----------------------------+\n");
+    printf("                   |                             |\n");
+    printf("                   |           SUDOKU            |\n");
+    printf("                   |                             |\n");
+    printf("                   +-----------------------------+\n");
+    printf("\033[0m");
+
+    printf("\n\n\n");
+    if(val ==1){
+        printf("                   +-----------------------------+\n");
+        printf("                   |                             |\n");
+        printf("                   |      0. Charger Partie      |\n");
+        printf("                   |      1. Nouvelle Partie     |\n");
+        printf("                   |      2. Quitter             |\n");
+        printf("                   |                             |\n");
+        printf("                   +-----------------------------+\n");
+        printf("\n\033[0;34mChoisissez une option (0-2) : \033[0m");
+    }else
+    {
+
+        printf("      +-----------------------------------------------+\n");
+        printf("      |                                               |\n");
+        printf("      |      0. jouer une exhibition                  |\n");
+        printf("      |      1. jouer une partie                      |\n");
+        printf("      |      2. consulter l'aide et la documentation  |\n");
+        printf("      |      3. Quitter                               |\n");
+        printf("      |                                               |\n");
+        printf("      +-----------------------------------------------+\n");
+
+        printf("\n\033[0;34mChoisissez une option (0-3) : \033[0m");
+    }
+    
+}
+
 void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
     char phrases[11][15] = {
         "Concentration!",
@@ -450,7 +488,8 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
     tovide(sodokumatrice);
     int partie;
     //printf("Pour jouer une exhibition, entrez 0. Pour jouer une partie, entrez 1 : ");
-    print_generique("Pour jouer une exhibition entrez(0); Pour jouer une partie entrez (1)\npour consulter l'aide et la documentation entrez -1 : ",1);
+    printSudokuLogo(0);
+    //print_generique("Pour jouer une exhibition entrez(0); Pour jouer une partie entrez (1)\npour consulter l'aide et la documentation entrez -1 : ",1);
     scanf("%d", &partie);
 
     if (partie == 0) {
@@ -472,7 +511,8 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
         game_free(gameInfo,sodokumatrice);
     } else if(partie == 1) {
         //printf("0 pour continuer une partie, 1 pour créer une nouvelle partie : ");
-        print_generique("0 pour continuer une partie, 1 pour creer une nouvelle partie : ",1);
+        //print_generique("0 pour continuer une partie, 1 pour creer une nouvelle partie : ",1);
+        printSudokuLogo(1);
         scanf("%d", &partie);
 
         if (partie == 0) {
@@ -492,7 +532,7 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
             } else {
                 printf("Chargement de la partie échoué.\n");
             }
-        } else {
+        } else if(partie == 1) {
             // Code pour créer une nouvelle partie
             GameInfo gameInfo;
             
@@ -547,7 +587,12 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
             printf("Nouvelle partie creee : Nom : %s, age : %d\n", gameInfo.name, gameInfo.age);
             game(gameInfo,sodokumatrice);
         }
-    }else
+        else
+        {
+            print_generique("A plus :-)",1);
+            exit(1);
+        }
+    }else if(partie ==2)
     {
         //fonction pour la documentation
         //aide237france.txt
@@ -599,6 +644,12 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
         printf("\n");       
         run(sodokumatrice,folderName);
     }
+    else
+    {
+        print_generique("A plus :-)",1);
+        exit(1);
+    }
+    
     
 }
 

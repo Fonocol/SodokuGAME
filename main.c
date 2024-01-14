@@ -15,7 +15,7 @@ int main(){
     //lance le jeu
     system("cls");//update
     print_generique("Bienvenue dans le jeu de sudoku developpe dans le cadre du projet tutore Ing1 Info!\n",0);
-    system("cls");
+    //system("cls");
 
     run(SodokuMatrice,folderName);
 

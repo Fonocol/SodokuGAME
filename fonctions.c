@@ -48,7 +48,7 @@ bool region(int SodokuMatrice[SIZE][SIZE],int ligne,int colone,int element){
     return false;
 }
 
-void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[11][15]){
+void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[11][15]){    
     char ph[14];
     strcpy(ph,phrases[rand()%9]);
     printf("\033[47m\033[31m            SODOKU            \033[0m\n");
@@ -140,17 +140,17 @@ void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[
         printf("\033[0m\n"); // Réinitialiser la couleur après chaque ligne
     }
     printf("\033[47m\033[31m            SODOKU            \033[0m\n");
-    printf("Action | Retour | Aide       |\n");
+    printf("\033[31mAction | Retour | Aide       |\033[0m\n");
     printf("_______|________|____________|\n");
     printf("Value  | 0      | -2         |\n");
     printf("_______|________|____________|\n");
-    printf("Level  | Partie | Points     |\n");
+    printf("\033[31mLevel  | Partie | Points     |\033[0m\n");
     printf("_______|________|____________|\n");
-    printf("%s\t %d\t  %d\n",gameinfo._level,gameinfo.partie,gameinfo.points);
+    printf("%s\t%d\t  %d\n",gameinfo._level,gameinfo.partie,gameinfo.points);
     printf("_______|________|____________|\n");
-    printf("Temps moyen par partie: %d s\n",gameinfo.tempsmoyen);
+    printf("\033[0;96mTemps moyen par partie: %d s\033[0m\n",gameinfo.tempsmoyen);
     printf("_____________________________|\n");
-    printf("Temps ecoule pour la partie %d: %u s\n",gameinfo.partie, gameinfo.currenttime);
+    printf("\033[0;96mTemps ecoule pour la partie %d: %u s\033[0m\n",gameinfo.partie, gameinfo.currenttime);
     printf("_____________________________|\n");
     //printf("A tout moment vous pouvez obtenir\nde l'aide en entrant -1 ou\nretour en entrant 0 sur value\n");
     /*printf("Level : %s \n",gameinfo._level);
