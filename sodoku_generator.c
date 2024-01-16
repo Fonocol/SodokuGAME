@@ -287,7 +287,6 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
                     jeu.matrice[i-1][j-1]=SodokuMatrice[i-1][j-1];
                     jeu.points = jeu.points-3*POINT;
                     value =SodokuMatrice[i-1][j-1];
-                    Sleep(500);
                 }else
                 {
                     print_generique("cette case est deja valide !",1);
@@ -323,7 +322,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         }
         
 
-        Sleep(100);
+        //Sleep(100);
         //save data
         currentTime = GetTickCount();
         temps = currentTime - startTime;

@@ -148,9 +148,9 @@ void afficher_en_Damier(GameInfo gameinfo,int line,int col,int val,char phrases[
     printf("_______|________|____________|\n");
     printf("%s\t%d\t  %d\n",gameinfo._level,gameinfo.partie,gameinfo.points);
     printf("_______|________|____________|\n");
-    printf("\033[0;96mTemps moyen par partie: %d s\033[0m\n",gameinfo.tempsmoyen);
+    printf("\033[0;96mTemps moyen par partie HH:MM:SS: %d:%02d:%02d s\033[0m\n",(gameinfo.tempsmoyen/3600),(gameinfo.tempsmoyen%3600)/60,(gameinfo.tempsmoyen%60));
     printf("_____________________________|\n");
-    printf("\033[0;96mTemps ecoule pour la partie %d: %u s\033[0m\n",gameinfo.partie, gameinfo.currenttime);
+    printf("\033[0;96mTemps ecoule HH:MM:SS: %d:%02d:%02d s\033[0m\n",(gameinfo.currenttime/3600),(gameinfo.currenttime%3600)/60,(gameinfo.currenttime%60));
     printf("_____________________________|\n");
     //printf("A tout moment vous pouvez obtenir\nde l'aide en entrant -1 ou\nretour en entrant 0 sur value\n");
     /*printf("Level : %s \n",gameinfo._level);
