@@ -470,6 +470,47 @@ void printSudokuLogo(int val) {
     }
     
 }
+void afficherAnimation() {
+    printf("Chargement en cours ");
+
+    CONSOLE_CURSOR_INFO cursorInfo;
+    GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+    cursorInfo.bVisible = FALSE;
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+
+    int centerX = 12; // Position X du centre de la console
+    int centerY = 12; // Position Y du centre de la console
+    int rayon = 4;    // Rayon de la roue
+    char* mots[] = {"S", "U", "D", "O", "K","U"};
+    int nbMots = sizeof(mots) / sizeof(mots[0]);
+
+    int i, j;
+    for (i = 0; i < 100; ++i) {
+        system("cls"); // Efface l'écran à chaque itération pour un effet de rotation
+
+        printf("Chargement en cours ");
+
+        // Affiche la roue tournante avec les lettres "S", "U", "D", "O", "K"
+        for (j = 0; j < nbMots; ++j) {
+            int angle = (i * 10 + j * 360 / nbMots) % 360;
+            int x = centerX + (int)(rayon * cos(angle * 3.14159265 / 180));
+            int y = centerY + (int)(rayon * sin(angle * 3.14159265 / 180));
+
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), (COORD){x, y});
+            printf("%s", mots[j]);
+        }
+
+        fflush(stdout);
+        Sleep(30); // Délai pour rendre l'animation plus fluide
+    }
+
+    // Remise à zéro du curseur
+    cursorInfo.bVisible = TRUE;
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+
+    printf("\n\n");
+}
+
 
 void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
     char phrases[11][15] = {
@@ -487,6 +528,7 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
     tovide(sodokumatrice);
     int partie;
     //printf("Pour jouer une exhibition, entrez 0. Pour jouer une partie, entrez 1 : ");
+    afficherAnimation();
     printSudokuLogo(0);
     //print_generique("Pour jouer une exhibition entrez(0); Pour jouer une partie entrez (1)\npour consulter l'aide et la documentation entrez -1 : ",1);
     scanf("%d", &partie);
