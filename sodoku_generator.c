@@ -181,6 +181,7 @@ int loadGameInfo(const char *folderPath, const char *gameName, GameInfo *gameInf
 }
 
 void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
+    afficherAnimation();
     char phrases[11][15] = {
         "Concentration!",
         "Vous reussirez",
@@ -217,17 +218,31 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         //printf("enter position x :\n");    
         do
         {
-            print_generique("enter position x 0 pour fermer :\n",1);
+            print_generique("enter position x 0 pour le MENU :\n",1);
             scanf("%d",&i);
         } while (i<0 || i>10);
         
  
         if (i==0)
         {
-            print_generique("A plus :-)",1);
-            Sleep(1500);
+           printf("\n");
+            print_generique("enregistrer la partie? 0 pour non et 'autre' pour oui \n",1);
+            scanf("%d",&i);
+            if (i == 0)
+            {
+                while (!isEmptyPIL(back))
+                {
+                    back = dePIL(back,&jeu);
+                }   
+                
+            }
             saveGameInfo("sodoku_doc", &jeu,SodokuMatrice);
-            exit(1);
+            free(back);
+            run(SodokuMatrice ,"sodoku_doc");
+            /*print_generique("A plus :-)",1);
+            Sleep(1500);
+            
+            exit(1);*/
         }
         
         //printf("enter position y :\n");
@@ -302,7 +317,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
         }
         
         else if ( value >0 && IsSodoku(jeu.matrice,i-1,j-1,value)){
-            if (jeu.matrice[i-1][j-1]=value == VIDE)
+            if (jeu.matrice[i-1][j-1] == VIDE)
             {
                 jeu.points = jeu.points+POINT;
             }
@@ -335,6 +350,7 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
 
     system("cls");
     afficher_en_Damier(jeu,i-1,j-1,value,phrases);
+    print_generique("Bravo !!! vous avez gagne la partie |_(00)_| \n",1);
     Sleep(500);
 
     free(back);
@@ -355,8 +371,8 @@ void game(GameInfo jeu,int SodokuMatrice[SIZE][SIZE]){
     
 
 
-    system("cls");
-    print_generique("Bravo !!! vous avez gagne la partie |_(00)_| \n",0);
+    //system("cls");
+    //print_generique("Bravo !!! vous avez gagne la partie |_(00)_| \n",0);
     tovide(SodokuMatrice);
     GenerateDagonaleBlocks(SodokuMatrice);
     for (int i = 0; i < SIZE; i++) {
@@ -471,6 +487,7 @@ void printSudokuLogo(int val) {
     
 }
 void afficherAnimation() {
+    system("cls");
     printf("Chargement en cours ");
 
     CONSOLE_CURSOR_INFO cursorInfo;
@@ -481,11 +498,11 @@ void afficherAnimation() {
     int centerX = 12; // Position X du centre de la console
     int centerY = 12; // Position Y du centre de la console
     int rayon = 4;    // Rayon de la roue
-    char* mots[] = {"S", "U", "D", "O", "K","U"};
+    char* mots[] = {".", ".", ".", ".", ".",".",".", ".", ".", ".", ".","."};
     int nbMots = sizeof(mots) / sizeof(mots[0]);
 
     int i, j;
-    for (i = 0; i < 100; ++i) {
+    for (i = 0; i < 50; ++i) {
         system("cls"); // Efface l'écran à chaque itération pour un effet de rotation
 
         printf("Chargement en cours ");
@@ -528,7 +545,6 @@ void run(int sodokumatrice[SIZE][SIZE],char *folderName) {
     tovide(sodokumatrice);
     int partie;
     //printf("Pour jouer une exhibition, entrez 0. Pour jouer une partie, entrez 1 : ");
-    afficherAnimation();
     printSudokuLogo(0);
     //print_generique("Pour jouer une exhibition entrez(0); Pour jouer une partie entrez (1)\npour consulter l'aide et la documentation entrez -1 : ",1);
     scanf("%d", &partie);
